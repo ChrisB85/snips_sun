@@ -1,9 +1,3 @@
 [global]
 prefix=kblachowicz:
 intent=next_dusk,next_dawn,next_setting,next_rising
-
-[secret]
-host=localhost
-port=1883
-user=
-pass=

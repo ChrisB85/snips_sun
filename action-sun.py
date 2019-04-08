@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from hermes_python.hermes import Hermes
 from hermes_python.ontology import *
+import sched, time
 import os, json, ast
 import snips_common as sc
 import snips_day as sd
@@ -23,10 +24,10 @@ def start_session(hermes, intent_message):
     print("Starting device control session " + session_id)
 
     json_string = os.popen('/srv/homeassistant-cli/sun.sh').read()
-    print(json_string)
+    #print(json_string)
     json_data = ast.literal_eval(json_string)
     sun = json.loads(json.dumps(json_data))
-    pprint(sun)
+    #pprint(sun)
     if intent_name == 'next_rising':
       text = "Słońce wschodzi o godzinie " + sd.get_local_time(sun["next_rising"])
     if intent_name == 'next_setting':

@@ -9,5 +9,5 @@ def get_local_time(utc_time):
   utc = utc.replace(tzinfo=from_zone)
   local = utc.astimezone(to_zone)
   time = local.strftime("%H:%M")
-  print(time)
+  #print(time)
   return time
