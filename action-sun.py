@@ -13,13 +13,12 @@ INTENT_FILTER_START_SESSION = []
 for x in intents:
     INTENT_FILTER_START_SESSION.append(x.strip())
 
+prefix = mqtt_client.get_config().get('global', 'prefix')
+
 def start_session(hermes, intent_message):
     session_id = sc.get_session_id(intent_message)
     site_id = sc.get_site_id(intent_message)
     intent_name = sc.get_intent_name(intent_message)
-
-    if intent_name not in INTENT_FILTER_START_SESSION:
-      return
 
     print("Starting device control session " + session_id)
 
@@ -42,4 +41,6 @@ def start_session(hermes, intent_message):
     hermes.publish_end_session(session_id, None)
 
 with Hermes(mqtt_options = mqtt_client.get_mqtt_options()) as h:
-    h.subscribe_intents(start_session).start()
+    for a in INTENT_FILTER_START_SESSION:
+        h.subscribe_intent(prefix + a, start_session)
+    h.start()
