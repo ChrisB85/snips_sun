@@ -36,9 +36,7 @@ def start_session(hermes, intent_message):
     if intent_name == 'next_dawn':
       text = "Jasno robi się o godzinie " + sd.get_local_time(sun["next_dawn"])
 
-    if text is not None:
-      mqtt_client.put('hermes/tts/say', '{"text": "' + text + '", "siteId": "' + site_id + '"}')
-    hermes.publish_end_session(session_id, None)
+    hermes.publish_end_session(session_id, text)
 
 with Hermes(mqtt_options = mqtt_client.get_mqtt_options()) as h:
     for a in INTENT_FILTER_START_SESSION:
